@@ -1,19 +1,15 @@
-﻿// <copyright file="AssemblyInfo.cs" company="Ensage">
-//    Copyright (c) 2017 Ensage.
-// </copyright>
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Pudge")]
+[assembly: AssemblyTitle("Simple Broodmother combo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Pudge")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyProduct("Simple Broodmother combo")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6fc8fce5-af45-4a8c-a473-7f4b48b3767c")]
+[assembly: Guid("47632bc6-455f-4958-a7fd-dc15dcc9ba09")]
 
 // Version information for an assembly consists of the following four values:
 //
