@@ -46,7 +46,7 @@ namespace Broodmother
             {
                 AbilityId.broodmother_spawn_spiderlings,
                 AbilityId.broodmother_spin_web,
-                AbilityId.broodmother_spin_web_destroy,
+                //AbilityId.broodmother_spin_web_destroy,
                 AbilityId.broodmother_insatiable_hunger
 
             };

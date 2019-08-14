@@ -92,18 +92,18 @@ namespace Broodmother
                 {
                     if (Q.CanBeCasted && creep.Health - Q.GetDamage(creep) <= 0 && creep.Health > 45 && creep.Team != me.Team)
                     {
-                        if (creep.Position.Distance2D(me.Position) <= 600)//&& Utils.SleepCheck("QQQ")
+                        if (creep.Position.Distance2D(me.Position) <= 600 && Utils.SleepCheck("QCreep"))//&& Utils.SleepCheck("QQQ")
                         {
                             if (soul != null && soul.CanBeCasted() && me.Health >= 400)
                             {
                                 soul.UseAbility();
-                                //Utils.Sleep(300, "QQQ");
+                                Utils.Sleep(300, "QCreep");
                                 //await Task.Delay()
                             }
                             else
                                 Q.UseAbility(creep);
-                            //Utils.Sleep(300, "QQQ");
-                            await Task.Delay(Q.GetCastDelay(creep), token);
+                            Utils.Sleep(300, "QCreep");
+                            //await Task.Delay(Q.GetCastDelay(creep), token);
 
                         }
                     }
@@ -112,18 +112,18 @@ namespace Broodmother
                 {
                     if (me.Mana < Q.ManaCost && creep.Health - Q.GetDamage(creep) <= 0 && creep.Health > 55 && creep.Team != me.Team)
                     {
-                        if (creep.Position.Distance2D(me.Position) <= 600)//&& Utils.SleepCheck("QQQ")
+                        if (creep.Position.Distance2D(me.Position) <= 600 && Utils.SleepCheck("QCreep"))//&& Utils.SleepCheck("QQQ")
                         {
                             if (soul != null && soul.CanBeCasted() && me.Health >= 400)
                             {
                                 soul.UseAbility();
-                                //Utils.Sleep(300, "QQQ");
+                                Utils.Sleep(300, "QCreep");
                             }
                         }
                     }
                 }
 
-                var Spiderling = EntityManager<Unit>.Entities.Where(x => x.NetworkName == "CDOTA_Unit_Broodmother_Spiderling" && x.IsAlive && x.IsControllable && x.Team == me.Team).ToList();
+               /* var Spiderling = EntityManager<Unit>.Entities.Where(x => x.NetworkName == "CDOTA_Unit_Broodmother_Spiderling" && x.IsAlive && x.IsControllable && x.Team == me.Team).ToList();
                 if (Spiderling.Count <= 0)
                     return;
                 for (int s = 0; s < Spiderlings.Count(); s++)//auto deny
@@ -173,7 +173,7 @@ namespace Broodmother
 
                 }
 
-                /*for (int t = 0; t < enemies.Count(); t++)// auto last hit enemies
+                for (int t = 0; t < enemies.Count(); t++)// auto last hit enemies
                 {
                     for (int s = 0; s < Spiderlings.Count(); s++)
                     {

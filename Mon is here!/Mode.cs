@@ -2,11 +2,9 @@
 using Ensage.Common;
 using Ensage.Common.Enums;
 using Ensage.Common.Extensions;
-using Ensage.SDK.Abilities.Items;
 //using Ensage.SDK.Extensions;
 using Ensage.SDK.Geometry;
 using Ensage.SDK.Helpers;
-using Ensage.SDK.Inventory.Metadata;
 using Ensage.SDK.Orbwalker.Modes;
 using Ensage.SDK.Prediction;
 using Ensage.SDK.TargetSelector;
@@ -74,20 +72,20 @@ namespace Broodmother
                     var Son = EntityManager<Unit>.Entities.Where(x => x.NetworkName == "CDOTA_Unit_Broodmother_Spiderling").ToList();
                     for (int i = 0; i < Son.Count(); i++)
                     {
-                        if (Son[i].Distance2D(target) <= 1500 && Utils.SleepCheck(Son[i].Handle.ToString() + "Sons"))//&& Utils.SleepCheck(Son[i].Handle.ToString() + "Sons")
+                        if (Son[i].Distance2D(target) <= 2000 && Utils.SleepCheck(Son[i].Handle.ToString() + "Sons"))//&& Utils.SleepCheck(Son[i].Handle.ToString() + "Sons")
                         {
                             Son[i].Attack(target);
-                            Utils.Sleep(350, Son[i].Handle.ToString() + "Sons");
+                            //Utils.Sleep(350, Son[i].Handle.ToString() + "Sons");
 
 
                         }
                     }
                     for (int i = 0; i < Son.Count(); i++)
                     {
-                        if (Son[i].Distance2D(target) >= 1500 && Utils.SleepCheck(Son[i].Handle.ToString() + "Sons"))
+                        if (Son[i].Distance2D(target) >= 2000 && Utils.SleepCheck(Son[i].Handle.ToString() + "Sons"))
                         {
                             Son[i].Move(Game.MousePosition);
-                            Utils.Sleep(350, Son[i].Handle.ToString() + "Sons");
+                            //Utils.Sleep(350, Son[i].Handle.ToString() + "Sons");
 
                         }
                     }
@@ -98,10 +96,9 @@ namespace Broodmother
                 var enemies = ObjectManager.GetEntities<Hero>().Where(hero => hero.IsAlive && !hero.IsIllusion && hero.IsVisible && hero.Team != me.Team).ToList();
                 if (target != null && target.IsAlive && !target.IsIllusion && me.Distance2D(target) <= 2000)
                 {
-
+                    var W = abilities.W;
                     var web = EntityManager<Unit>.Entities.Where(unit => unit.NetworkName == "CDOTA_Unit_Broodmother_Web").ToList();
                     var SpinWeb = GetClosestToWeb(web, me);
-                    var W = abilities.W;
                     if (menu.AbilityTogglerItem.Value.IsEnabled(W.Ability.Name) && W.CanBeCasted && !W.Ability.IsHidden)
                     {
                         if ((me.Distance2D(SpinWeb) >= 900) && me.Distance2D(target) <= 800 && Utils.SleepCheck(SpinWeb.Handle.ToString() + "SpideWeb"))
@@ -111,6 +108,8 @@ namespace Broodmother
                             Utils.Sleep(300, SpinWeb.Handle.ToString() + "SpideWeb");
                         }
                     }
+
+
                     if (!target.IsMagicImmune())
                     {
                         var Q = abilities.Q;
@@ -126,9 +125,9 @@ namespace Broodmother
                             await Task.Delay(R.GetCastDelay(), token);
                         }
 
-                        var orchid = me.GetItemById(ItemId.item_orchid);
+                        var orchid = me.GetItemById(ItemId.item_orchid) ??
+                            me.GetItemById(ItemId.item_bloodthorn);
                         if (orchid !=null &&
-                            menu.ItemTogglerItem.Value.IsEnabled(orchid.ToString()) &&
                              orchid.CanBeCasted() &&
                              !linkens &&
                              orchid.CanHit(target) &&
@@ -178,9 +177,9 @@ namespace Broodmother
                             Utils.Sleep(250, "mom");
 
                             }
-                        var medall = me.GetItemById(ItemId.item_medallion_of_courage);
+                        var medall = me.GetItemById(ItemId.item_solar_crest) ??
+                             me.GetItemById(ItemId.item_medallion_of_courage);
                             if (medall != null &&
-                            menu.ItemTogglerItem.Value.IsEnabled(medall.ToString()) &&
                                 medall.CanBeCasted() && Utils.SleepCheck("medall") &&
                         me.Distance2D(target) <= 500)
                             {
@@ -229,26 +228,27 @@ namespace Broodmother
                         if ((!Owner.CanAttack() || Owner.Distance2D(target) >= 0) && Owner.NetworkActivity != NetworkActivity.Attack &&
                             Owner.Distance2D(target) <= 600 && Utils.SleepCheck("Move"))
                         {
-                            me.Move(target.Predict(500));
-                            Utils.Sleep(390, "Move");
+                            Orbwalker.Move(target.Predict(500));
+                            //Utils.Sleep(390, "Move");
                         }
                         if (Owner.Distance2D(target) <= Owner.AttackRange + 100 && (!Owner.IsAttackImmune() || !target.IsAttackImmune())
                             && Owner.NetworkActivity != NetworkActivity.Attack && Owner.CanAttack() && Utils.SleepCheck("attack"))
                         {
-                            me.Attack(target);
-                            Utils.Sleep(160, "attack");
+                            Orbwalker.Attack(target);
+                           // Utils.Sleep(160, "attack");
 
                         }
                     }
 
 
-                    
+
+
                 }
                 await Task.Delay(290, token);
             }
             catch (TaskCanceledException)
             {
-                // Ignored
+                
             }
             catch (Exception ex)
             {
